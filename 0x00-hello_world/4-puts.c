@@ -1,5 +1,4 @@
 #!/bin/bash
-Task 4....
 #include <stdio.h>
 
 /**
