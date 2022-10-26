@@ -1,4 +1,4 @@
-#include <stdio.h>
+ wstdio.h>
 
 /**
  * main - Prints the alphabet in lowercase.
