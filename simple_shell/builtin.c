@@ -1,158 +1,28 @@
-#include "simishell.h"
+#include "main.h"
 
 /**
- * lister - a function which executes the /bin/ls program to list files
- * @line: an array of command and arguments
- *
- * Return: return 1 on success, -1 if fails
+ * get_builtin - builtin that pais the command in the arg
+ * @cmd: command
+ * Return: function pointer of the builtin command
  */
-int lister(char *line[])
+int (*get_builtin(char *cmd))(data_shell *)
 {
-	int status;
-	pid_t waiter, child;
+	builtin_t builtin[] = {
+		{ "env", _env },
+		{ "exit", exit_shell },
+		{ "setenv", _setenv },
+		{ "unsetenv", _unsetenv },
+		{ "cd", cd_shell },
+		{ "help", get_help },
+		{ NULL, NULL }
+	};
+	int i;
 
-	child = fork();
-	if (child == -1)
+	for (i = 0; builtin[i].name; i++)
 	{
-		perror("Forking");
+		if (_strcmp(builtin[i].name, cmd) == 0)
+			break;
 	}
-	if (child == 0)
-	{
-		execve("/bin/ls", line, NULL);
-	}
-	else
-	{
-		waiter = wait(&status);
-		if (waiter == -1)
-		{
-			perror("waiting");
-		}
-	}
-	free(line);
-	return (1);
-}
 
-/**
- * cater - a function which executes the /bin/cat program to show text files
- * @line: an array of command and arguments
- *
- * Return: 1 on success, -1 if fails
- */
-int cater(char *line[])
-{
-	int status;
-	pid_t waiter, child;
-
-	child = fork();
-	if (child == -1)
-	{
-		perror("Forking");
-	}
-	if (child == 0)
-	{
-		execve("/bin/cat", line, NULL);
-	}
-	else
-	{
-		waiter = wait(&status);
-		if (waiter == -1)
-		{
-			perror("Waiting");
-		}
-	}
-	free(line);
-	return (1);
-}
-/**
- * builtincom - a function to execute when unlisted comman entered
- * @line: is a pointer to pointer of characters
- *
- * Return: return an integer
- */
-int builtincom(char **line)
-{
-	int status;
-	pid_t waiter, child;
-
-	child = fork();
-	if (child == -1)
-	{
-		perror("Forking");
-	}
-	if (child == 0)
-	{
-		execve(line[0], line, NULL);
-		if (errno != 0)
-		{
-			return (errno);
-		}
-	}
-	else
-	{
-		waiter = wait(&status);
-		if (waiter == -1)
-		{
-			perror("waiting");
-		}
-	}
-	free(line);
-	return (0);
-}
-/**
- * pwder - a function which prints the current path
- * @line: an array of command and arguments
- *
- * Return: 1 on success and -1 if it fails
- */
-int pwder(char *line[])
-{
-	int status;
-	pid_t waiter, child;
-
-	child = fork();
-	if (child == -1)
-		perror("Forking");
-	if (child == 0)
-	{
-		execve("/bin/pwd", line, NULL);
-	}
-	else
-	{
-		waiter = wait(&status);
-		if (waiter == -1)
-			perror("Waiting");
-	}
-	free(line);
-	return (1);
-}
-/**
- * echorr - a function which echo back any text
- * @line: an array of command and arguments
- *
- * Return: 1 on success and -1 if it fails
- */
-int echorr(char *line[])
-{
-	int status;
-	pid_t waiter, child;
-
-	child = fork();
-	if (child == -1)
-	{
-		perror("Forking");
-	}
-	if (child == 0)
-	{
-		execve("/bin/echo", line, NULL);
-	}
-	else
-	{
-		waiter = wait(&status);
-		if (waiter == -1)
-		{
-			perror("Waiting");
-		}
-	}
-	free(line);
-	return (1);
+	return (builtin[i].f);
 }
