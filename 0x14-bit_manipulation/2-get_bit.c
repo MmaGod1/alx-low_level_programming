@@ -10,10 +10,13 @@
  */
 int get_bit(unsigned long int n, unsigned int index)
 {
-	int shift = 1 << index;
-	unsigned long int position;
+	unsigned int bit_pos;
 
-	position = (n & shift) >> index;
+	if (index > 32)
+		return (-1);
 
-	return (position);
+	bit_pos = (n >> index) & 1;
+
+	return (bit_pos);
 }
+
