@@ -10,10 +10,6 @@
  */
 int get_bit(unsigned long int n, unsigned int index)
 {
-	if (index > 63)
-	{
-		return (-1);
-	}
 	int shift = 1 << index;
 	unsigned long int position;
 
