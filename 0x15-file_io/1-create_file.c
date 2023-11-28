@@ -14,29 +14,29 @@ int create_file(const char *filename, char *text_content)
 		return (-1);
 	if (!text_content)
 	{
-		i = 0;
+		fd = open(filename, O_WRONLY | O_CREAT |
+				O_TRUNC, S_IRUSR | S_IWUSR);
+		if (fd == -1)
+		return (-1);
 	}
 	else
 	{
-		for (i = 0; text_content[i]; i++)
-			;
-	}
+		while (text_content[i] != '\0')
+			i++;
+		fd = open(filename, O_WRONLY | O_CREAT |
+				O_TRUNC, S_IRUSR | S_IWUSR);
 
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
-	wr_fil = write(fd, text_content, i);
+		if (fd == -1)
+			return (1);
 
-	if (fd == -1)
-		return (-1);
-	if (text_content != NULL)
 		wr_fil = write(fd, text_content, i);
 
-	if (wr_fil == -1)
-	{
-		close(fd);
-		return (-1);
+		if (wr_fil == -1)
+		{
+			close(fd);
+			return (-1);
+		}
 	}
-
 	close(fd);
-
 	return (1);
 }
