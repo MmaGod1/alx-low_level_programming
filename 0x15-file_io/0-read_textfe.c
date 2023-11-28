@@ -20,15 +20,30 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	rd_txt = open(filename, O_RDONLY);
 
-	if (rd_txt == -1)
+	if (!rd_txt)
 		return (0);
 	buf = malloc(sizeof(char) * letters);
 
+	if (!buf)
+	{
+		close(rd_txt);
+		return (0);
+	}
 	rd_fil = read(rd_txt, buf, letters);
 
+	if (!rd_fil)
+	{
+		free(buf);
+		close(rd_txt);
+		return (0);
+	}
 	wr_fil = write(STDOUT_FILENO, buf, rd_fil);
 
 	free(buf);
 	close(rd_txt);
-	return(wr_fil);
+
+	if (wr_fil == -1)
+		return (0);
+	else
+		return (wr_fil);
 }
