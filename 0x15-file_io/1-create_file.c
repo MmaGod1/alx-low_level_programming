@@ -20,14 +20,15 @@ int create_file(const char *filename, char *text_content)
 	{
 		for (len = 0; text_content[len]; len++)
 			;
-		wr_fil = write(cr_fil, text_content, len);
+	}
+	wr_fil = write(cr_fil, text_content, len);
 
-		if (wr_fil == -1 || wr_fil != len)
-		{
+	if (wr_fil == -1 || wr_fil != len)
+	{
 			close(cr_fil);
 			return (-1);
-		}
 	}
+
 	close(cr_fil);
 	return (1);
 }
