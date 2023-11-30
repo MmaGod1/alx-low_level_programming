@@ -16,7 +16,7 @@
 ssize_t read_textfile(const char *filename, size_t letters)
 {
 	char *buf;
-	ssize_t rd_txt, wr_fil, rd_fil;
+	ssize_t rd_txt, wr_fil, rd_cnt;
 
 	rd_txt = open(filename, O_RDONLY);
 
@@ -24,9 +24,9 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		return (0);
 	buf = malloc(sizeof(char) * letters);
 
-	rd_fil = read(rd_txt, buf, letters);
+	rd_cnt = read(rd_txt, buf, letters);
 
-	wr_fil = write(STDOUT_FILENO, buf, rd_fil);
+	wr_fil = write(STDOUT_FILENO, buf, rd_cnt;
 
 	free(buf);
 	close(rd_txt);

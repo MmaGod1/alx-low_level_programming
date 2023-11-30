@@ -8,35 +8,26 @@
  */
 int create_file(const char *filename, char *text_content)
 {
-	int fd, wr_fil, i;
+	int cr_fil, wr_fil, len;
 
 	if (!filename)
 		return (-1);
-	if (!text_content)
+
+	cr_fil = open(filename, O_RDWR | O_CREAT |
+			O_TRUNC, S_IRUSR | S_IWUSR);
+
+	if (text_content == NULL)
 	{
-		fd = open(filename, O_WRONLY | O_CREAT |
-				O_TRUNC, S_IRUSR | S_IWUSR);
-		if (fd == -1)
-		return (-1);
-	}
-	else
-	{
-		while (text_content[i] != '\0')
-			i++;
-		fd = open(filename, O_WRONLY | O_CREAT |
-				O_TRUNC, S_IRUSR | S_IWUSR);
+		for (len = 0; text_content[len]; len++)
+			;
+		wr_fil = write(cr_fil, text_content, len);
 
-		if (fd == -1)
-			return (1);
-
-		wr_fil = write(fd, text_content, i);
-
-		if (wr_fil == -1)
+		if (wr_fil == -1 || wr_fil != len)
 		{
-			close(fd);
+			close(cr_fil);
 			return (-1);
 		}
 	}
-	close(fd);
+	close(cr_fil);
 	return (1);
 }
