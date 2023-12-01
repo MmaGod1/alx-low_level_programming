@@ -12,7 +12,11 @@
 #define BUFFER_SIZE 1024
 int main(int argc, char *argv[])
 {
-	char buffer[BUFFER_SIZE];                                  ssize_t bytes_read, bytes_written;
+	int fd_to, fd_from;
+	char buffer[BUFFER_SIZE];
+	ssize_t bytes_read, bytes_written;
+	const char *file_from;
+	const char *file_to;
 
 	if (argc != 3)
 	{
@@ -20,17 +24,17 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
-	const char *file_from = argv[1];
-	const char *file_to = argv[2];
+	file_from = argv[1];
+	file_to = argv[2];
 
-	int fd_from = open(file_from, O_RDONLY);
+	fd_from = open(file_from, O_RDONLY);
 	if (fd_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
 
-	int fd_to = open(file_to, O_WRONLY | O_CREAT |
+	fd_to = open(file_to, O_WRONLY | O_CREAT |
 			O_TRUNC, S_IRUSR | S_IWUSR |
 			S_IRGRP | S_IROTH);
 
