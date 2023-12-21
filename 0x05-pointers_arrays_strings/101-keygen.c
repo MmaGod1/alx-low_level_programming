@@ -7,7 +7,7 @@
  * Return: 0
  */
 
-#define PASSWORD_LENGTH 8
+#define PASSWORD_LENGTH 15
 
 int main(void)
 {
