@@ -9,43 +9,40 @@
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int len1 = 0, len2 = 0, carry = 0;
-	int sum, max_len, start, end, res, num1, num2;
-	char temp;
+	int i, j, len_n1 = 0, len_n2 = 0, num1, num2;
+	int sum, carry, remainder, k = 0;
+	while (n1[len_n1] != '\0')
+	{
+		len_n1++;
+	}
+	while (n2[len_n2] != '\0')
+	{
+		len_n2++;
+	}
+	for (i = len_n1 - 1, j = len_n2 - 1; i >= 0 || j >= 0 || carry != 0; i--, j--)
+	{
+		num1 = (i >= 0 && n1[i] >= '0' && n1[i] <= '9') ? n1[i] - '0' : 0;
+		num2 = (j >= 0 && n2[j] >= '0' && n2[j] <= '9') ? n2[j] - '0' : 0;
 
-	while (n1[len1] != '\0')
-		len1++;
-	while (n2[len2] != '\0')
-		len2++;
-	max_len = (len1 > len2 ? len1 : len2) + 1;
-	if (max_len > size_r)
-		return (0);
-	len1--;
-	len2--;
-	res = 0;
-	while (len1 >= 0 || len2 >= 0 || carry)
-	{
-		num1 = (len1 >= 0 && n1[len1] >= '0' && n1[len1] <= '9') ?
-			(n1[len1] - '0') : 0;
-		num2 = (len2 >= 0 && n2[len2] >= '0' && n2[len2] <= '9') ?
-			(n2[len2] - '0') : 0;
+		if (num1 == 0 && num2 == 0)
+		{
+			return (0);
+		}
+
 		sum = num1 + num2 + carry;
+		remainder = sum % 10;
 		carry = sum / 10;
-		r[res] = (sum % 10) + '0';
-		res++;
-		len1--;
-		len2--;
+
+		if (k >= size_r - 1)
+		{
+			return (0);
+		}
+		else
+		{
+			r[k] = remainder + '0';
+			k++;
+		}
 	}
-	r[res] = '\0';
-	start = 0;
-	end = res - 1;
-	while (start < end)
-	{
-		temp = r[start];
-		r[start] = r[end];
-		r[end] = temp;
-		start++;
-		end--;
-	}
+	r[k] = '\0';
 	return (r);
 }
