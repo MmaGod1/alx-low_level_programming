@@ -15,15 +15,15 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 
 	for (i = 0, j = 0; n1[i] != '\0' || n2[j] != '\0' || carry != 0; i++, j++)
 	{
-		num1 = (n1[i] != '\0') ? n1[i] - '0' : 0;
-		num2 = (n2[j] != '\0') ? n2[j] - '0' : 0;
+		num1 = (n1[i] >= '0' && n1[i] <= '9') ? n1[i] - '0' : 0;
+		num2 = (n2[j] >= '0' && n2[j] <= '9') ? n2[j] - '0' : 0;
 
 		sum = num1 + num2 + carry;
 		remainder = sum % 10;
 		carry = sum / 10;
 		if (k >= size_r - 1)
 		{
-			return (NULL);
+			return (0);
 		}
 		else
 		{
