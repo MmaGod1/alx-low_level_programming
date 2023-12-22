@@ -11,6 +11,7 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
 	int i, j, len_n1 = 0, len_n2 = 0, num1, num2;
 	int sum, carry, remainder, k = 0;
+	char temp;
 
 	while (n1[len_n1] != '\0')
 	{
@@ -45,5 +46,12 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		}
 	}
 	r[k] = '\0';
+
+	for (i = 0, j = k - 1; i < j; i++, j--)
+	{
+		temp = r[i];
+		r[i] = r[j];
+		r[j] = temp;
+	}
 	return (r);
 }
