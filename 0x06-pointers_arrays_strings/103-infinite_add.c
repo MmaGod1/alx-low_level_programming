@@ -21,6 +21,12 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	{
 		len_n2++;
 	}
+
+	if (len_n1 > size_r || len_n2 > size_r)
+	{
+		return 0;
+	}
+
 	for (i = len_n1 - 1, j = len_n2 - 1; i >= 0 || j >= 0 || carry != 0; i--, j--)
 	{
 		num1 = (i >= 0 && n1[i] >= '0' && n1[i] <= '9') ? n1[i] - '0' : 0;
