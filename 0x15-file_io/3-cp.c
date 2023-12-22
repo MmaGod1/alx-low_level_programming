@@ -6,6 +6,7 @@
  * copy_file - Copies the content of one file to another.
  * @file_from: the name of the source file
  * @file_to: the name of the destination file
+ * @BUFFER_SIZE: gives size of the array
  *
  * Description: If the argument count is incorrect - exit code 97.
  * If file_from does not exist or cannot be read - exit code 98.
@@ -14,16 +15,15 @@
  * Return: 0.
  */
 
-int copy_file(const char *file_from, const char *file_to)
+int copy_file(const char *file_from, const char *file_to, const int BUFFER_SIZE)
 {
 	int fd_to, fd_from;
-	char buffer[1024];
+	const int BUFFER_SIZE = 1024;
 	ssize_t bytes_read, bytes_written;
 
 	fd_from = open(file_from, O_RDONLY);
-	bytes_read = read(fd_from, buffer, 1024);
 
-	if (fd_from == -1 || bytes_read == -1)
+	if (fd_from == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
@@ -33,14 +33,28 @@ int copy_file(const char *file_from, const char *file_to)
 			S_IRUSR | S_IWUSR | S_IRGRP |
 			S_IROTH);
 
+	if (fd_to == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+		exit(99);
+	}
+
+	bytes_read = read(fd_from, buffer, BUFFER_SIZE);
+
 	while (bytes_read > 0)
 	{
 		bytes_written = write(fd_to, buffer, bytes_read);
-		if (fd_to == -1 || bytes_written == -1)
+		if (bytes_written == -1 || bytes_written != bytes_read)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 			exit(99);
 		}
+	}
+
+	if (bytes_read == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+		exit(98);
 	}
 
 	if (close(fd_from) == -1 || close(fd_to) == -1)
@@ -49,9 +63,6 @@ int copy_file(const char *file_from, const char *file_to)
 				|| close(fd_from));
 		exit(100);
 	}
-
-	close(fd_from);
-	close(fd_to);
 	return (0);
 }
 
@@ -65,6 +76,7 @@ int copy_file(const char *file_from, const char *file_to)
 
 int main(int argc, char *argv[])
 {
+	const int BUFFER_SIZE = 1024;
 	const char *file_from;
 	const char *file_to;
 
@@ -77,10 +89,7 @@ int main(int argc, char *argv[])
 	file_from = argv[1];
 	file_to = argv[2];
 
-	if (copy_file(file_from, file_to) == -1)
-	{
-		exit(99);
-	}
+	copy_file(file_from, file_to, BUFFER_SIZE);
 
 	return (0);
 }
