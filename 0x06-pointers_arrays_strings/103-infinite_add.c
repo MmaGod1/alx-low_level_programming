@@ -39,6 +39,11 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 			r[k] = sum + '0';
 			k++;
 		}
+
+		if (i <= 0 && j <= 0)
+		{
+			break;
+		}
 	}
 	r[k] = '\0';
 	return (r);
