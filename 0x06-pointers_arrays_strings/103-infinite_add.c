@@ -31,10 +31,6 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 			k++;
 		}
 	}
-	if (n1[i] != '\0')
-		i++;
-	if (n2[j] != '\0')
-		j++;
 	r[k] = '\0';
 	return (r);
 }
