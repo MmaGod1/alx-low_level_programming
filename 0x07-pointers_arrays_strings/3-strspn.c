@@ -24,4 +24,5 @@ unsigned int _strspn(char *s, char *accept)
 			return (count);
 	}
 	return (count);
+	/* Add a return statement outside the loop for other cases */
 }
