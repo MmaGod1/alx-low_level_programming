@@ -2,21 +2,19 @@
 
 /**
  * print_chessboard - prints the chessboard
- * @a: input pointer.
- * Return: no return.
+ * @a: pointer to an array of 8 characters.
+ * Return: void.
  */
 void print_chessboard(char (*a)[8])
 {
-	unsigned int i, m = 0;
+	int row, column = 0;
 
-	for (i = 0; i < 64; i++)
+	for (row = 0; row < 8; row++)
 	{
-		if (i % 8 == 0 && i != 0)
+		for (; column < 8; column++)
 		{
-			m = i;
-			_putchar('\n');
+			_putchar(a[row][column]);
 		}
-		_putchar(a[i / 8][i - m]);
-	}
 	_putchar('\n');
+	}
 }
