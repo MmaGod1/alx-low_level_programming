@@ -29,7 +29,7 @@ char *_strstr(char *haystack, char *needle)
 			return (haystack + I);
 			/* Substring found, return pointer to the start */
 		}
-		i = I + 1;
+		i++;
 		/* Move to the next character in haystack for next iteration */
 	}
 	return (NULL);
