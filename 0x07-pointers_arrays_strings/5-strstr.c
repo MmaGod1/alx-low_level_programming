@@ -10,21 +10,28 @@
 */
 char *_strstr(char *haystack, char *needle)
 {
-	char *bhaystack;
-	char *pneedle;
+	int i = 0, j = 0, I;
 
-	while (*haystack != '\0')
+	while (haystack[i] != '\0')
 	{
-		bhaystack = haystack;
-		pneedle = needle;
+		I = i;
+		/* Store the initial position of haystack */
+		j = 0;
+		/* set j to 0 for each i iteration */
 
-		while (*haystack != '\0' && *pneedle != '\0' && *haystack == *pneedle)
+		while (needle[j] != '\0' && haystack[i] == needle[j])
 		{
-			haystack++;
-			pneedle++;
+			i++;
+			j++;
 		}
-		if (!*pneedle)
-			return (bhaystack);
+		if (needle[j] == '\0')
+		{
+			return (haystack + I);
+			/* Substring found, return pointer to the start */
+		}
+		i = I + 1;
+		/* Move to the next character in haystack for next iteration */
 	}
-	return (0);
+	return (NULL);
+	/* when substring is not found */
 }
