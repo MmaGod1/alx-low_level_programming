@@ -4,9 +4,9 @@
 /**
  * print_diagsums - prints the sum of the two
  * diagonals of a square matrix of integers
- * @a: input pointer.
- * @size: size of the matrix
- * Return: no return.
+ * @a: pointer to array.
+ * @size: size of the array matrix
+ * Return: void.
  */
 void print_diagsums(int *a, int size)
 {
@@ -14,10 +14,11 @@ void print_diagsums(int *a, int size)
 
 	for (i = 0; i < (size * size); i++)
 	{
-		if (i % (size + 1) == 0)
-			sum1 += *(a + i);
-		if (i % (size - 1) == 0 && i != 0 && i < size * size - 1)
-			sum2 += *(a + i);
+		sum1 += a[i * size + i];
+		/* Access the primary diagonal elements */
+
+		sum2 += a[i * size + (size - 1 - i)];
+		/*Access the secondary diagonal elements */
 	}
 	printf("%d, %d\n", sum1, sum2);
 }
