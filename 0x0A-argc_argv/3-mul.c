@@ -3,8 +3,8 @@
 
 /**
  * main - multiplies two numbers.
- * @argc: number of command line arguments.
- * @argv: array that contains the program command line arguments.
+ * @argc: counts number of command line arguments passed must be up to 3.
+ * @argv: array which contains the numbers to be multiplied.
  * Return: 0 - success.
  */
 int main(int argc, char *argv[])
