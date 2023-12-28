@@ -16,8 +16,8 @@ int _strlen_recursion(char *s)
 /**
  * palindrome_check - checks if a string is a pslindrome.
  * @s: inputed string
- * @start: the first character of the string
- * @end: the last character of the string
+ * @start: the first index of the string
+ * @end: the last index of the string
  *
  * Return: 1 id its a palindrome or 0 if its not.
  */
