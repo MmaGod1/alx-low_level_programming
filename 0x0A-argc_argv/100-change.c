@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include "main.h"
 /**
- * main - prints the minimum number of coins to make change for an amount of money.
+ * main - prints the minimum number of coins to make
+ * change for an amount of money.
  * @argc: the number of argument passed - here just 1.
  * @argv: the argument passed.
  *
  * Return: 0 on success, 1 for error - if no argument is passed.
  */
 
-int main(int argc, char argv[])
+int main(int argc, char *argv[])
 {
 	int i, num, coins;
 	int cents[] = {25, 10, 5, 2, 1};
@@ -19,12 +20,12 @@ int main(int argc, char argv[])
 		printf("Error\n");
 	}
 
-	if (argv[1] < 0)
+	num = atoi(argv[1]);
+
+	if (num < 0)
 	{
 		printf("0\n");
 	}
-
-	num = atoi(argv[1]);
 
 	for (i = 0; i < 5; i++)
 	{
