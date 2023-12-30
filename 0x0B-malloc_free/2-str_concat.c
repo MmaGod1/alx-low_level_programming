@@ -6,12 +6,12 @@
  * @s1: first string.
  * @s2: second string.
  *
- * Return: pointer of an array of chars
+ * Return: pointer to tbe concatenated string.
  */
 char *str_concat(char *s1, char *s2)
 {
-	char *strout;
-	unsigned int i, j, k, limit;
+	char *cat;
+	unsigned int i, j;
 
 	if (s1 == NULL)
 		s1 = "";
@@ -24,20 +24,20 @@ char *str_concat(char *s1, char *s2)
 	for (j = 0; s2[j] != '\0'; j++)
 		;
 
-	strout = malloc(sizeof(char) * (i + j + 1));
+	cat = malloc(sizeof(char) * (i + j + 1));
 
-	if (strout == NULL)
+	if (cat  == NULL)
 	{
-		free(strout);
+		free(cat);
 		return (NULL);
 	}
 
-	for (k = 0; k < i; k++)
-		strout[k] = s1[k];
+	i = j = 0;
+	for (i = 0; s1[i] != '\0'; i++)
+		cat[i] = s1[i];
 
-	limit = j;
-	for (j = 0; j <= limit; k++, j++)
-		strout[k] = s2[j];
+	for (j = 0; s2[j] != '\0'; j++)
+		cat[i + j] = s2[j];
 
-	return (strout);
+	return (cat);
 }

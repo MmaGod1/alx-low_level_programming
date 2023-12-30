@@ -3,13 +3,13 @@
 
 /**
  * _strdup - returns a pointer to a newly allocated space in memory.
- * @str: string.
+ * @str: passed string.
  *
- * Return: pointer of an array of chars
+ * Return: pointer to the duplicated string.
  */
 char *_strdup(char *str)
 {
-	char *strout;
+	char *dup;
 	unsigned int i, j;
 
 	if (str == NULL)
@@ -18,13 +18,13 @@ char *_strdup(char *str)
 	for (i = 0; str[i] != '\0'; i++)
 		;
 
-	strout = (char *)malloc(sizeof(char) * (i + 1));
+	dup = (char *)malloc(sizeof(char) * (i + 1));
 
-	if (strout == NULL)
+	if (dup == NULL)
 		return (NULL);
 
 	for (j = 0; j <= i; j++)
-		strout[j] = str[j];
+		dup[j] = str[j];
 
-	return (strout);
+	return (dup);
 }
