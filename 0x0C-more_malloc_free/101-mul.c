@@ -104,7 +104,7 @@ void result_print(int *result, int len)
 
 int main(int argc, char *argv[])
 {
-	int *result, lenq, len2;
+	int *result, len1, len2;
 	if (argc != 3)
 	{
 		printf("Error\n");
