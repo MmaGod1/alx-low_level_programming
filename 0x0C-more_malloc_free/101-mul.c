@@ -105,6 +105,7 @@ void result_print(int *result, int len)
 int main(int argc, char *argv[])
 {
 	int *result, len1, len2;
+
 	if (argc != 3)
 	{
 		printf("Error\n");
@@ -126,6 +127,6 @@ int main(int argc, char *argv[])
 	result = multiply(argv[1], argv[2]);
 	result_print(result, len1 + len2);
 
-	multiply(argv[1], argv[2]);
+	free(result);
 	return (0);
 }
