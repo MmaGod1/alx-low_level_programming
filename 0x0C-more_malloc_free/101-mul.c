@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Function to check if the input string contains only digits
+/* Function to check if the input string contains only digits */
 int isValidInput(char *str) {
     while (*str != '\0') {
         if (*str < '0' || *str > '9') {
@@ -12,7 +12,7 @@ int isValidInput(char *str) {
     return 1;
 }
 
-// Function to perform multiplication
+/* Function to perform multiplication */
 void multiply(char *num1, char *num2) {
     int len1 = 0, len2 = 0, i, j;
     while (num1[len1] != '\0') {
@@ -28,12 +28,12 @@ void multiply(char *num1, char *num2) {
         exit(98);
     }
 
-    // Initialize the result array to 0
+    /* Initialize the result array to 0 */
     for (i = 0; i < len1 + len2; i++) {
         result[i] = 0;
     }
 
-    // Multiply each digit and store the result in the array
+    /* Multiply each digit and store the result in the array */
     for (i = len1 - 1; i >= 0; i--) {
         for (j = len2 - 1; j >= 0; j--) {
             int mul = (num1[i] - '0') * (num2[j] - '0');
@@ -43,13 +43,13 @@ void multiply(char *num1, char *num2) {
         }
     }
 
-    // Skip leading zeroes
+    /* Skip leading zeroes */
     i = 0;
     while (i < len1 + len2 && result[i] == 0) {
         i++;
     }
 
-    // Print the result
+    /* Print the result */
     if (i == len1 + len2) {
         printf("0\n");
     } else {
