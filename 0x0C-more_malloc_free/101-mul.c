@@ -104,6 +104,7 @@ void result_print(int *result, int len)
 
 int main(int argc, char *argv[])
 {
+	int *result, lenq, len2;
 	if (argc != 3)
 	{
 		printf("Error\n");
@@ -115,6 +116,15 @@ int main(int argc, char *argv[])
 		printf("Error\n");
 		return (98);
 	}
+
+	len1 = 0, len2 = 0;
+	while (argv[1][len1] != '\0')
+		len1++;
+	while (argv[2][len2] != '\0')
+		len2++;
+
+	result = multiply(argv[1], argv[2]);
+	result_print(result, len1 + len2);
 
 	multiply(argv[1], argv[2]);
 	return (0);
