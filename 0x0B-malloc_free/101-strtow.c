@@ -1,23 +1,31 @@
 #include <stdlib.h>
-#include "main.h"
+#include <stdlib.h>
 
-/**
- * delimiter - checks for word seperatorsi(delimiters).
- * @c: character to be checked
- * @delim: string containing delimiters.
- *
- * Return: 0.
- */
-int delimiter(char c, char *delim)
+int count_words(const char *str)
 {
-	while (*delim)
-	{
-		if (c == *delim)
-			return (1);
-		delim++;
-	}
-	return (0);
+        int count = 0;
+        int i = 0;
+
+        while (str[i] == ' ')
+        {
+                i++;
+        }
+
+        while (str[i] != '\0')
+        {
+                /**
+                 * If the current character is not a space and
+                 * the next character is a space or end of string
+                 */
+                if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
+                {
+                        count++;
+                }
+                i++;
+        }
+        return (count);
 }
+
 
 /**
  * strtow -splits a string into words.
@@ -25,47 +33,52 @@ int delimiter(char c, char *delim)
  *
  * Return: a pointer to an array of strings (words)
  * and null if the function fails.
- */
-char **strtow(char *str)
-{
-	int i, j, len, word_count, word_index, word_length;
-	char **words = NULL, *delim = " .,;";
+	*/
 
-	if (str == NULL || str[0] == '\0')
-		return (NULL);
+char **strtow(char *str) {
+    int i = 0, j = 0, k = 0, wrd_cnt;
+    char **words;
 
-	len = 0;
-	while (str[len] != '\0')
-		len++;
+    if (str == NULL || *str == '\0') 
+        return NULL;
 
-	word_count = 0;
-	for (i = 0; i < len; i++)
-	{
-		if (!delimiter(str[i], delim) && (i == 0 || delimiter(str[i - 1], delim)))
-			word_count++;
-	}
-	word_index = 0;
-	word_length = 0;
-	for (i = 0; i <= len; i++)
-	{
-		if (!delimiter(str[i], delim) && (i == 0 || delimiter(str[i - 1], delim)))
-		{
-			words[word_index] = malloc((word_length + 1) * sizeof(char));
-			if (words[word_index] == NULL)
-				return (NULL);
+    wrd_cnt = count_words(str);
+    if (wrd_cnt == 0)
+        return NULL;
 
-			j = 0;
-			while (!delimiter(str[i], delim) && str[i] != '\0')
-				words[word_index][j++] = str[i++];
-		words[word_index][j] = '\0';
-		word_index++;
-		word_length = 0;
-		}
-		else
-		{
-			word_length++;
-		}
-	}
-	words[word_index] = NULL;
-	return (words);
+    words = (char **)malloc((wrd_cnt + 1) * sizeof(char *));
+    if (words == NULL)
+        return NULL;
+
+    while (str[i]) {
+        if (str[i] != ' ') {
+            j = i;
+            while (str[j] && str[j] != ' ') {
+                j++;
+            }
+            words[k] = (char *)malloc((j - i + 1) * sizeof(char));
+            if (words[k] == NULL) {
+                /* Free memory allocated so far in case of failure */
+                while (k > 0) {
+                    free(words[--k]);
+                }
+                free(words);
+                return NULL;
+            }
+
+            /* Copy characters to the newly allocated memory for the word */
+            j = 0;
+            while (str[i] && str[i] != ' ') {
+                words[k][j++] = str[i++];
+            }
+            words[k++][j] = '\0';
+        } else {
+            i++;
+        }
+    }
+    words[k] = NULL;
+/* Terminate the array of strings with NULL */
+
+    return words;
 }
+
