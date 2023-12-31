@@ -13,7 +13,10 @@ int isValidInput(char *str) {
 }
 
 /* Function to perform multiplication */
-void multiply(char *num1, char *num2) {
+void multiply(char *num1, char *num2)
+{
+	int sum, mul;
+	int *result;
     int len1 = 0, len2 = 0, i, j;
     while (num1[len1] != '\0') {
         len1++;
@@ -22,7 +25,7 @@ void multiply(char *num1, char *num2) {
         len2++;
     }
 
-    int *result = (int *)malloc(sizeof(int) * (len1 + len2));
+    result = malloc(sizeof(int) * (len1 + len2));
     if (result == NULL) {
         printf("Memory allocation failed\n");
         exit(98);
@@ -36,8 +39,8 @@ void multiply(char *num1, char *num2) {
     /* Multiply each digit and store the result in the array */
     for (i = len1 - 1; i >= 0; i--) {
         for (j = len2 - 1; j >= 0; j--) {
-            int mul = (num1[i] - '0') * (num2[j] - '0');
-            int sum = result[i + j + 1] + mul;
+            mul = (num1[i] - '0') * (num2[j] - '0');
+            sum = result[i + j + 1] + mul;
             result[i + j] += sum / 10;
             result[i + j + 1] = sum % 10;
         }
