@@ -3,9 +3,9 @@
 
 /**
  * print_dog - prints a struct dog.
- * @d: struct dog.
+ * @d: a pointer to a struct dog.
  *
- * Return: no return.
+ * Return: nothing.
  */
 void print_dog(struct dog *d)
 {
