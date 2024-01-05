@@ -3,11 +3,11 @@
 /**
  * array_iterator - executes a function given as a
  * parameter on each element of an array.
- * @array: input integer array.
+ * @array: passed in array.
  * @size: size of the array.
- * @action: pointer to the function.
+ * @action: pointer to the passed function.
  *
- * Return: no return.
+ * Return: void.
  */
 void array_iterator(int *array, size_t size, void (*action)(int))
 {
