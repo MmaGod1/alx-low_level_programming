@@ -15,7 +15,7 @@ void print_all(const char * const format, ...)
 	int i = 0;
 	float f = 0.0;
 	char *s = NULL;
-	int num_values = 0;
+	int printed_values = 0;
 	int count = 0;
 	va_list args;
 
