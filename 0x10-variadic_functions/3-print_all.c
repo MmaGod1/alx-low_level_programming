@@ -14,7 +14,8 @@ void print_all(const char * const format, ...)
 	char c;
 	int i = 0;
 	float f = 0.0;
-	char *s = NULL, *sep = ", ";
+	char *s = NULL;
+	int num_values = 0;
 	int count = 0;
 	va_list args;
 
@@ -22,6 +23,8 @@ void print_all(const char * const format, ...)
 
 	while ((c = format[count]) != '\0' && count < 9)
 	{
+		if (num_values > 0)
+			printf(", ");
 		switch (c)
 		{
 			case 'c':
@@ -42,7 +45,6 @@ void print_all(const char * const format, ...)
 					printf("(nil)");
 				printf("%s", s);
 		}
-		sep = ", ";
 		break;
 	}
 	count++;
