@@ -18,18 +18,20 @@ void print_all(const char * const format, ...)
 	va_list args;
 
 	va_start(args, format);
-	while ((c = format[count]) != '\0' && count < 9)
+	if (format)
 	{
-		if (printed_values > 0 && (c == 'c' || c == 'i' || c == 'f' || c == 's'))
-			printf(", ");
-		switch (c)
+		while ((c = format[count]) != '\0' && count < 9)
 		{
-			case 'c':
-				i = va_arg(args, int);
-				printf("%c", i);
-				printed_values++;
-				break;
-			case 'i':
+			if (printed_values > 0 && (c == 'c' || c == 'i' || c == 'f' || c == 's'))
+				printf(", ");
+			switch (c)
+			{
+				case 'c':
+					i = va_arg(args, int);
+					printf("%c", i);
+					printed_values++;
+					break;
+				case 'i':
 				i = va_arg(args, int);
 				printf("%d", i);
 				printed_values++;
