@@ -8,49 +8,42 @@
  *
  * Return: void.
  */
-
 void print_all(const char * const format, ...)
 {
-	char c;
-	int i = 0, printed_values = 0, count = 0;
-	float f = 0.0;
-	char *s = NULL;
+	unsigned int i = 0;
+	char *s, *sep = "";
 	va_list args;
 
 	va_start(args, format);
 	if (format)
 	{
-		while ((c = format[count]) != '\0' && count < 9)
+		while (format[i])
 		{
-			if (printed_values > 0 && (c == 'c' || c == 'i' || c == 'f' || c == 's'))
-				printf(", ");
-			switch (c)
+			switch (format[i])
 			{
 				case 'c':
-					i = va_arg(args, int);
-					printf("%c", i);
-					printed_values++;
+					printf("%s%c", sep, va_arg(args, int));
 					break;
 				case 'i':
-				i = va_arg(args, int);
-				printf("%d", i);
-				printed_values++;
-				break;
-			case 'f':
-				f = (float)va_arg(args, double);
-				printf("%f", f);
-				printed_values++;
-				break;
-			case 's':
-				s = va_arg(args, char*);
-				if (s == NULL)
-					printf("(nil)");
-				printf("%s", s);
-				printed_values++;
-				break;
+					printf("%s%i", sep, va_arg(args, int));
+					break;
+				case 'f':
+					printf("%s%f", sep, va_arg(args, double));
+					break;
+				case 's':
+					s = va_arg(args, char *);
+					if (!s)
+						s = "(nil)";
+					printf("%s%s", sep, s);
+					break;
+				default:
+					i++;
+					continue;
+			}
+			sep = ", ";
+			i++;
 		}
-		count++;
 	}
-	va_end(args);
 	printf("\n");
+	va_end(args);
 }
