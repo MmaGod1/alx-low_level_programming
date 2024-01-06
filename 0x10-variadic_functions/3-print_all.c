@@ -23,7 +23,7 @@ void print_all(const char * const format, ...)
 
 	while ((c = format[count]) != '\0' && count < 9)
 	{
-		if (num_values > 0)
+		if (printed_values > 0 && (c == 'c' || c == 'i' || c == 'f' || c == 's'))
 			printf(", ");
 		switch (c)
 		{
