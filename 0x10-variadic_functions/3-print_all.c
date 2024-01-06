@@ -14,12 +14,12 @@ void print_all(const char * const format, ...)
 	char c;
 	int i = 0;
 	float f = 0.0;
-	char *s = NULL;
+	char *s = NULL, *sep = ", ";
 	int count = 0;
-
 	va_list args;
+
 	va_start(args, format);
-	
+
 	while ((c = format[count]) != '\0' && count < 9)
 	{
 		switch (c)
@@ -42,6 +42,7 @@ void print_all(const char * const format, ...)
 					printf("(nil)");
 				printf("%s", s);
 		}
+		sep = ", ";
 		break;
 	}
 	count++;
