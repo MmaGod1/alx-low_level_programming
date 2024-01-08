@@ -5,7 +5,7 @@
  * Return: void.
  */
 
-void __attribute__ ((constructor));
+void __attribute__ ((constructor))
 bfmain()
 {
 	printf("You're beat! and yet, you must allow");
