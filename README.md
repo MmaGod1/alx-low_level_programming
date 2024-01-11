@@ -1,2 +1,1 @@
-#!/bin/bash
-C programming 
+# C programming 
