@@ -24,7 +24,7 @@ char *hash_table_get(const hash_table_t *ht, const char *key)
 	while (node != NULL)
 	{
 		/* Compare keys */
-		if (hash_strings_equal(node->key, key))
+		if (strcmp(node->key, key))
 			return (node->value);
 		node = node->next;
 	}
