@@ -11,8 +11,10 @@
  */
 #include <stdio.h>
 
-int interpolation_search(int *array, size_t size, int value) {
-    if (array == NULL) {
+int interpolation_search(int *array, size_t size, int value)
+{
+    if (array == NULL)
+    {
         printf("Array is NULL\n");
         return -1;
     }
@@ -20,16 +22,22 @@ int interpolation_search(int *array, size_t size, int value) {
     int low = 0;
     int high = size - 1;
     
-    while (low <= high && value >= array[low] && value <= array[high]) {
+    while (low <= high && value >= array[low] && value <= array[high])
+    {
         int pos = low + (((double)(high - low) / (array[high] - array[low])) * (value - array[low]));
         
         printf("Value checked array[%d] = [%d]\n", pos, array[pos]);
         
-        if (array[pos] == value) {
+        if (array[pos] == value)
+        {
             return pos;
-        } else if (array[pos] < value) {
+        }
+        else if (array[pos] < value)
+        {
             low = pos + 1;
-        } else {
+        }
+        else
+        {
             high = pos - 1;
         }
     }
