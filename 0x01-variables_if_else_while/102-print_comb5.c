@@ -1,4 +1,4 @@
-#include <stdio.h>
+1#include <stdio.h>
 
 /**
  * main - Prints all possible combinations of two two-digit numbers
@@ -6,37 +6,25 @@
  *
  * Return: Always 0
  */
+
 int main(void)
 {
-	int N, M, B, R;
+	int first, second;
 
-	for (N = 0; N <= 9; N++)
+	for (first = 0; first <= 98; first++)
 	{
-		for (M = 0; M <= 9; M++)
+		for (second = first + 1; second <= 99; second++)
 		{
-			for (B = N; B <= 9; B++)
+			putchar((first / 10) + '0');
+			putchar((first % 10) + '0');
+			putchar(' ');
+			putchar((second / 10) + '0');
+			putchar((second % 10) + '0');
+
+			if (!(first == 98 && second == 99))
 			{
-				if (B == N)
-				{
-					R = M + 1;
-				}
-				else
-				{
-					R = 0;
-				}
-				for (; R <= 9; R++)
-				{
-					putchar(N + '0');
-					putchar(M + '0');
-					putchar(' ');
-					putchar(B + '0');
-					putchar(R + '0');
-					if (N != 9 || M != 8 || B != 9 || R != 9)
-					{
-						putchar(',');
-						putchar(' ');
-					}
-				}
+				putchar(',');
+				putchar(' ');
 			}
 		}
 	}
