@@ -9,25 +9,17 @@
 
 int main(void)
 {
-	int start_num, end_num, total;
+	int i, total = 0;
 
-	end_num = 1024;
-	total = 0;
-
-	for (start_num = 0; start_num < end_num; start_num++)
+	for (i = 0; i < 1024; i++)
 	{
-		if ((start_num % 3 == 0) || (start_num % 5 == 0))
+		if (i % 3 == 0 || i % 5 == 0)
 		{
-			total = total + start_num;
-		}
-		else
-		{
-			continue;
+			total = total + i;
 		}
 	}
 
-	printf("%d", total);
-	printf("\n");
+	printf("%d\n", total);
 
 	return (0);
 }
