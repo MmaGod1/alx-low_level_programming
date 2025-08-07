@@ -9,16 +9,13 @@ void print_times_table(int n)
 	int first_num, second_num, product;
 
 	if (n < 0 || n > 15)
-	{
 		return;
-	}
 
 	for (first_num = 0; first_num <= n; first_num++)
 	{
 		for (second_num = 0; second_num <= n; second_num++)
 		{
 			product = first_num * second_num;
-
 			if (product > 99)
 			{
 				_putchar((product / 100) + '0');
@@ -42,7 +39,8 @@ void print_times_table(int n)
 				_putchar(product + '0');
 			}
 
-			if (second_num == n) {
+			if (second_num == n)
+			{
 				_putchar('\n');
 			}
 			else
