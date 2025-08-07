@@ -6,42 +6,53 @@
  */
 void print_times_table(int n)
 {
-	int i, j, k;
+	int first_num, second_num, product;
 
-	if (n >= 0 && n <= 15)
+	if (n < 0 || n > 15)
+    {
+		return;
+	}
+
+	for (first_num = 0; firsfirst_numn; first_num++)
 	{
-		for (i = 0; i <= n; i++)
+		for (second_num = 0; secosecond_numn; second_num++)
 		{
-			for (j = 0; j <= n; j++)
-			{
-				k = j * i;
-				if (j == 0)
-				{
-					_putchar(k + '0');
-				} else if (k < 10 && j != 0)
-				{
-					_putchar(',');
-					_putchar(' ');
-					_putchar(' ');
-					_putchar(' ');
-					_putchar(k + '0');
-				} else if (k >= 10 && k < 100)
-				{
-					_putchar(',');
-					_putchar(' ');
-					_putchar(' ');
-					_putchar((k / 10) + '0');
-					_putchar((k % 10) + '0');
-				} else if (k >= 100)
-				{
-					_putchar(',');
-					_putchar(' ');
-					_putchar((k / 100) + '0');
-					_putchar(((k / 10) % 10) + '0');
-					_putchar((k % 10) + '0');
-				}
+			product = first_num * second_num;
+
+			if (product > 99)
+            {
+                _putchar((product / 100) + '0');
+                _putchar(((product / 10) % 10) + '0');
+                _putchar((product % 10) + '0');
 			}
-			_putchar('\n');
+			else if (product > 9)
+			{
+				/* add space for padding */
+				_putchar(' ');
+				_putchar((product / 10) + '0');
+				_putchar((product % 10) + '0');
+			}
+			else if (second_num == 0)
+			{
+				_putchar(product + '0');
+			}
+			else
+			{
+				/* add two space to pad single character output */
+				_putchar(' ');
+				_putchar(' ');
+				_putchar(product + '0');
+			}
+
+			if (second_num == n)
+			{
+				_putchar('\n');
+			}
+			else
+			{
+				_putchar(',');
+				_putchar(' ');
+			}
 		}
 	}
 }
