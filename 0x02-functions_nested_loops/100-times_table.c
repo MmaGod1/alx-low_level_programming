@@ -15,7 +15,7 @@ void print_times_table(int n)
 
 	for (first_num = 0; firsfirst_numn; first_num++)
 	{
-		for (second_num = 0; secosecond_numn; second_num++)
+		for (second_num = 0; second_num < n; second_num++)
 		{
 			product = first_num * second_num;
 
