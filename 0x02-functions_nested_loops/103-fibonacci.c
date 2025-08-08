@@ -13,11 +13,9 @@ int main(void)
     {
         if (seq % 2 == 0)
             even_sum += seq;
-
         i = j;
         j = seq;
     }
-
     printf("%d\n", even_sum);
     return (0);
 }
