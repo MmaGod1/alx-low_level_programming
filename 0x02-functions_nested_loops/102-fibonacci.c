@@ -10,12 +10,12 @@ int main(void)
 	long int i = 1, j = 2, seq;
 	int count;
 
-	printf("%d, %d, ", i, j);
+	printf("%lu, %lu, ", i, j);
 
 	for (count = 2; count < 50; count++)
 	{
 		seq = i + j;
-		printf("%d", seq);
+		printf("%lu", seq);
 
 		if (count < 49)
 			printf(", ");
