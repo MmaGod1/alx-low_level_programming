@@ -7,22 +7,23 @@
  */
 int main(void)
 {
-	int i = 1, j = 2, count, seq;
+	long int i = 1, j = 2, seq;
+	int count;
 
-    printf("%d, %d, ", i, j);
+	printf("%d, %d, ", i, j);
 
-    for (count = 2; count < 50; count++)
-    {
-        seq = i + j;
-        printf("%d", seq);
-        
-        if (count < 49)
-            printf(", ");
+	for (count = 2; count < 50; count++)
+	{
+		seq = i + j;
+		printf("%d", seq);
 
-        i = j;
-        j = seq;
-    }
+		if (count < 49)
+			printf(", ");
 
-    printf("\n");
-    return 0;
+		i = j;
+		j = seq;
+	}
+
+	printf("\n");
+	return 0;
 }
