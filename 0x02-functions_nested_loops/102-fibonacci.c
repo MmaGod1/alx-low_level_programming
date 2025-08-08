@@ -7,27 +7,22 @@
  */
 int main(void)
 {
-	int count = 2;
-	long int i = 1, j = 2;
-	long int k;
+	int i = 1, j = 2, count, seq;
 
-	printf("%lu, ", i);
-	while (count <= 50)
-	{
-		if (count == 50)
-		{
-			printf("%lu\n", j);
-		}
-		else
-		{
-			printf("%lu, ", j);
-		}
+    printf("%d, %d, ", i, j);
 
-		k = j;
-		j += i;
-		i = k;
-		count++;
-	}
+    for (count = 2; count < 50; count++)
+    {
+        seq = i + j;
+        printf("%d", seq);
+        
+        if (count < 49)
+            printf(", ");
 
-	return (0);
+        i = j;
+        j = seq;
+    }
+
+    printf("\n");
+    return 0;
 }
