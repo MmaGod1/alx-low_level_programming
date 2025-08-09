@@ -26,12 +26,12 @@ int main(void)
 			high_sum++;
 		}
 
-		if (high_sum)
-			 printf(", %lu%09lu", high_sum, low_sum);
+        if (high_sum)
+			printf(", %lu%09lu", high_sum, low_sum);
 		else
 			printf(", %lu", low_sum);
 
- 		a = b;
+		a = b;
 		a_high = b_high;
 		b = low_sum;
 		b_high = high_sum;
