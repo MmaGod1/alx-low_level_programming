@@ -7,17 +7,16 @@
  */
 int main(void)
 {
-    int i = 1, j = 2, seq, even_sum = 2;
+	int i = 1, j = 2, seq, even_sum = 2;
 
-    for (seq = i + j; seq < 4000000; seq = i + j)
-    {
-        if (seq % 2 == 0)
-            even_sum += seq;
+	for (seq = i + j; seq < 4000000; seq = i + j)
+	{
+		if (seq % 2 == 0)
+			even_sum += seq;
+		i = j;
+		j = seq;
+	}
 
-        i = j;
-        j = seq;
-    }
-
-    printf("%d\n", even_sum);
-    return (0);
+	printf("%d\n", even_sum);
+	return (0);
 }

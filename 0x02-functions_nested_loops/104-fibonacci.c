@@ -7,36 +7,37 @@
  */
 int main(void)
 {
-	unsigned long int i, j, k, j1, j2, k1, k2;
+	unsigned long a = 1, b = 2;
+	unsigned long a_high = 0, b_high = 0;
+	unsigned long low_sum, high_sum;
+	int count;
 
-	j = 1;
-	k = 2;
+	printf("%lu, %lu", a, b);
 
-	printf("%lu", j);
-
-	for (i = 1; i < 91; i++)
+	for (count = 3; count <= 98; count++)
 	{
-		printf(", %lu", k);
-		k = k + j;
-		j = k - j;
-	}
+		low_sum = a + b;
+		high_sum = a_high + b_high;
 
-	j1 = j / 1000000000;
-	j2 = j % 1000000000;
-	k1 = k / 1000000000;
-	k2 = k % 1000000000;
+		/* if low part overflows */
+		if (low_sum >= 1000000000)
+		{
+			low_sum -= 1000000000;
+			high_sum++;
+		}
 
-	for (i = 92; i < 99; ++i)
-	{
-		printf(", %lu", k1 + (k2 / 1000000000));
-		printf("%lu", k2 % 1000000000);
-		k1 = k1 + j1;
-		j1 = k1 - j1;
-		k2 = k2 + j2;
-		j2 = k2 - j2;
+		if (high_sum)
+			 printf(", %lu%09lu", high_sum, low_sum);
+		else
+			printf(", %lu", low_sum);
+
+ 		a = b;
+		a_high = b_high;
+		b = low_sum;
+		b_high = high_sum;
 	}
 
 	printf("\n");
-
 	return (0);
 }
+
