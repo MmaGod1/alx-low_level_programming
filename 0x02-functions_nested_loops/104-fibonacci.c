@@ -19,7 +19,7 @@ int main(void)
 		low_sum = a + b;
 		high_sum = a_high + b_high;
 
-        high_sum += low_sum / 1000000000;
+		high_sum += low_sum / 1000000000;
 		low_sum = low_sum % 1000000000;
 
 		if (high_sum)
