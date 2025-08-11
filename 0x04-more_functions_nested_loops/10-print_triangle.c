@@ -6,26 +6,24 @@
  */
 void print_triangle(int size)
 {
+	int row, space, hash;
+
 	if (size <= 0)
 	{
 		_putchar('\n');
-	} else
+	}
+
+	for (row = 1; row <= size; row++)
 	{
-		int i, j;
-
-		for (i = 1; i <= size; i++)
+		for (space = size - row; space > 0; space--)
 		{
-			for (j = i; j < size; j++)
-			{
-				_putchar(' ');
-			}
-
-			for (j = 1; j <= i; j++)
-			{
-				_putchar('#');
-			}
-
-			_putchar('\n');
+			_putchar(' ');
 		}
+
+		for (hash = 0; hash < row; hash++)
+		{
+			_putchar('#');
+		}
+		_putchar('\n');
 	}
 }
