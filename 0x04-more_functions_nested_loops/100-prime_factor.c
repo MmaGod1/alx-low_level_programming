@@ -7,32 +7,23 @@
  * Return: Always 0.
  */
 
-void  prime_factors(long num);
-
 int main(void)
 {
-	prime_factors(612852475143);
-	return (0);
-}
+	long n = 612852475143;
+	long factor = 2;
+	long largest_factor = 0;
 
-/**
- * prime_factors - prints prime factors
- * @num: has the value 612852475143
- *
- * Description: the function prints the prime factors of
- * 612852475143 and the largest prime factor
- */
-
-void  prime_factors(long num)
-{
-	long i;
-
-	for (i = 3; num > 1; i++)
+	while (n > 1)
 	{
-		while (num % i == 0)
+		if (n % factor == 0)
 		{
-			num = num / i;
+			largest_factor = factor;
+			n /= factor;
+			while (n % factor == 0)
+				n /= factor;
 		}
+		factor++;
 	}
-	printf("%ld\n", i - 1);
+	printf("%ld\n", largest_factor);
+	return (0);
 }
