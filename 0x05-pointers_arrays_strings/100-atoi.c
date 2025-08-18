@@ -9,25 +9,25 @@
  */
 int _atoi(char *s)
 {
-	unsigned int count, sign, result;
+	unsigned int index, sign, num;
 
-	count = 0;
+	index = 0;
 	sign = 1;
-	result = 0;
+	num = 0;
 
-	while (s[count] != '\0' && (s[count] < '0' || s[count] > '9'))
+	while (s[index] != '\0' && (s[index] < '0' || s[index] > '9'))
 	{
-		if (s[count] == '-')
+		if (s[index] == '-')
 		{
 			sign *= -1;
 		}
-		count++;
+		index++;
 	}
 
-	while (s[count] >= '0' && s[count] <= '9')
+	while (s[index] >= '0' && s[index] <= '9')
 	{
-		result = result * 10 + (s[count] - '0');
-		count++;
+		num = num * 10 + (s[index] - '0');
+		index++;
 	}
-	return (result * sign);
+	return (sign * num);
 }
