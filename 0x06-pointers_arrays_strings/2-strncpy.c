@@ -11,13 +11,15 @@ char *_strncpy(char *dest, char *src, int n)
 {
 	int d;
 
-	for (d = 0; d < n && src[d] != '\0'; d++)
+	for (d = 0; d < n; d++)
 	{
-		dest[d] = src[d];
-	}
-	for (; d < n; d++)
-	{
-		dest[d] = '\0';
+		if (src[d] != '\0')
+			dest[d] = src[d];
+		else
+		{
+			 /* pad with null bytes if src is shorter than n */
+			 dest[d] = '\0';
+		}
 	}
 	return (dest);
 }
