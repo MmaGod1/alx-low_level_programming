@@ -7,31 +7,25 @@
  * @needle: the substring to be compared.
  * Return: pointer to the beginning of located substring or
  * NULL if the substring is not found.
-*/
+ */
+
 char *_strstr(char *haystack, char *needle)
 {
-	int i = 0, j = 0, I;
+	int i, j;
 
-	while (haystack[i] != '\0')
+	if (*needle == '\0')
+		return haystack;
+
+	for (i = 0; haystack[i] != '\0'; i++)
 	{
-		I = i;
-		/* Store the initial position of haystack */
-		j = 0;
-		/* set j to 0 for each i iteration */
-
-		while (needle[j] != '\0' && haystack[i] == needle[j])
+		for (j = 0; needle[j] != '\0'; j++)
 		{
-			i++;
-			j++;
+			if (haystack[i + j] != needle[j])
+				break;
 		}
 		if (needle[j] == '\0')
-		{
-			return (haystack + I);
-			/* Substring found, return pointer to the start */
-		}
-		i++;
-		/* Move to the next character in haystack for next iteration */
+			return &haystack[i];
 	}
-	return (NULL);
-	/* when substring is not found */
+
+	return NULL;
 }
