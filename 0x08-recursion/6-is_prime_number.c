@@ -19,7 +19,7 @@ int prime_check(int n, int i)
 }
 
 /**
- * is_prime_number - calls prime_check function if some cindituons aren't met.
+ * is_prime_number - calls prime_check function if some conditions aren't met.
  * @n: input number.
  *
  * Return: 1 if n is a prime number. 0 if n is not a prime number.
