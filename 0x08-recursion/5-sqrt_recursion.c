@@ -9,14 +9,11 @@
 int _sqrt(int n, int r)
 {
 	if (r * r == n)
-	{
 		return (r);
-	}
 
 	if (r * r > n)
-	{
 		return (-1);
-	}
+
 	return (_sqrt(n, r + 1));
 }
 /**
