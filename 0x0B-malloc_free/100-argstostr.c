@@ -8,46 +8,37 @@
  *
  * Return: a pointer to a new string, or NULL if it fails
  */
+
 char *argstostr(int ac, char **av)
 {
-	int i, j = 0, len = 0, k;
-	char *args;
+	int i, j, k, total_len = 0;
+	char *grid;
 
 	if (ac == 0 || av == NULL)
 		return (NULL);
 
 	for (i = 0; i < ac; i++)
 	{
-		j = 0;
-		while (av[i][j] != '\0')
-		{
-			len++;
-			j++;
-		}
-		len++;
-		/* for '\n' */
+		for (j = 0; av[i][j] != '\0'; j++)
+			total_len++;
 	}
-	len++;
-	/* for '\0' */
 
-	args = malloc(sizeof(char) * len);
-	if (args == NULL)
+	/* + ac for '\n', +1 for final '\0' */
+	grid = malloc(sizeof(char) * (total_len + ac + 1));
+	if (grid == NULL)
 		return (NULL);
 
+	/* Copy arguments into grid */
 	k = 0;
 	for (i = 0; i < ac; i++)
 	{
-		j = 0;
-		while (av[i][j] != '\0')
+		for (j = 0; av[i][j] != '\0'; j++)
 		{
-			args[k] = av[i][j];
-			k++;
-			j++;
+			grid[k++] = av[i][j];
 		}
-	args[k] = '\n';
-	k++;
+		grid[k++] = '\n';
 	}
-	args[k] = '\0';
+	grid[k] = '\0';
 
-	return (args);
+	return (grid);
 }
