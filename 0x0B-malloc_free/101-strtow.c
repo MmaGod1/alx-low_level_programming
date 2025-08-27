@@ -24,12 +24,13 @@ int count_words(char *str)
 		}
 		i++;
 	}
-	return words;
+	return (words);
 }
-
 /**
  * copy_word - creates a new string from part of another string.
  * @str: the original string.
+ * @start: starting index of the word in the string.
+ * @len: length of the word to copy.
  *
  * Return: a pointer to the newly allocated word (null-terminated),
  * or NULL if memory allocation fails.
@@ -40,11 +41,11 @@ char *copy_word(char *str, int start, int len)
 	int i;
 
 	if (!word)
-		return NULL;
+		return (NULL);
 	for (i = 0; i < len; i++)
 		word[i] = str[start + i];
 	word[len] = '\0';
-	return word;
+	return (word);
 }
 
 /**
@@ -60,15 +61,15 @@ char **strtow(char *str)
 	int i = 0, start, len, w = 0, num_words;
 
 	if (!str || !str[0])
-		return NULL;
+		return (NULL);
 
 	num_words = count_words(str);
 	if (num_words == 0)
-		return NULL;
+		return (NULL);
 
 	words = malloc(sizeof(char *) * (num_words + 1));
 	if (!words)
-		return NULL;
+		return (NULL);
 
 	while (str[i])
 	{
@@ -91,10 +92,10 @@ char **strtow(char *str)
 			while (w > 0)
 				free(words[--w]);
 			free(words);
-			return NULL;
+			return (NULL);
 		}
 		w++;
 	}
 	words[w] = NULL;
-	return words;
+	return (words);
 }
