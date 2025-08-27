@@ -85,7 +85,6 @@ char **strtow(char *str)
 			len++;
 			i++;
 		}
-
 		words[w] = copy_word(str, start, len);
 		if (!words[w])
 		{
