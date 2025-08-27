@@ -1,38 +1,51 @@
 #include <stdlib.h>
-#include <stdlib.h>
-
+#include <stdio.h>
 /**
  * count_words - counts the number of words in a string.
  * @str: the string.
  *
  * Return: the words counted.
  */
-
-int count_words(const char *str)
+int count_words(char *str)
 {
-	int count = 0;
-	int i = 0;
+	int i = 0, words = 0;
+	int in_word = 0;
 
-	while (str[i] == ' ')
+	while (str[i])
 	{
-		i++;
-	}
-
-	while (str[i] != '\0')
-	{
-		/**
-		 * If the current character is not a space and
-		 * the next character is a space or end of string
-		 */
-		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
+		if (str[i] != ' ' && !in_word)
 		{
-			count++;
+			words++;
+			in_word = 1;
+		}
+		else if (str[i] == ' ')
+		{
+			in_word = 0;
 		}
 		i++;
 	}
-	return (count);
+	return words;
 }
 
+/**
+ * copy_word - creates a new string from part of another string.
+ * @str: the original string.
+ *
+ * Return: a pointer to the newly allocated word (null-terminated),
+ * or NULL if memory allocation fails.
+ */
+char *copy_word(char *str, int start, int len)
+{
+	char *word = malloc(sizeof(char) * (len + 1));
+	int i;
+
+	if (!word)
+		return NULL;
+	for (i = 0; i < len; i++)
+		word[i] = str[start + i];
+	word[len] = '\0';
+	return word;
+}
 
 /**
  * strtow - splits a string into words.
@@ -41,47 +54,47 @@ int count_words(const char *str)
  * Return: a pointer to an array of strings (words)
  * and null if the function fails.
  */
-
 char **strtow(char *str)
 {
-	int i = 0, j = 0, k = 0, wrd_cnt;
 	char **words;
+	int i = 0, start, len, w = 0, num_words;
 
-	if (str == NULL || *str == '\0')
-		return (NULL);
-	wrd_cnt = count_words(str);
-	if (wrd_cnt == 0)
-		return (NULL);
-	words = (char **)malloc((wrd_cnt + 1) * sizeof(char *));
-	if (words == NULL)
-		return (NULL);
+	if (!str || !str[0])
+		return NULL;
+
+	num_words = count_words(str);
+	if (num_words == 0)
+		return NULL;
+
+	words = malloc(sizeof(char *) * (num_words + 1));
+	if (!words)
+		return NULL;
+
 	while (str[i])
 	{
-		if (str[i] != ' ')
-		{
-			j = i;
-			while (str[j] && str[j] != ' ')
-				j++;
-
-			words[k] = (char *)malloc((j - i + 1) * sizeof(char));
-			if (words[k] == NULL)
-			{
-				/* Free memory allocated so far in case of failure */
-				while (k > 0)
-					free(words[--k]);
-				free(words);
-				return (NULL);
-			}
-			/* Copy characters to the newly allocated memory for the word */
-			j = 0;
-			while (str[i] && str[i] != ' ')
-				words[k][j++] = str[i++];
-			words[k++][j] = '\0';
-		}
-		else
+		while (str[i] == ' ')
 			i++;
+		if (!str[i])
+			break;
+
+		start = i;
+		len = 0;
+		while (str[i] != '\0' && str[i] != ' ')
+		{
+			len++;
+			i++;
+		}
+
+		words[w] = copy_word(str, start, len);
+		if (!words[w])
+		{
+			while (w > 0)
+				free(words[--w]);
+			free(words);
+			return NULL;
+		}
+		w++;
 	}
-	words[k] = NULL;
-	/* Terminate the array of strings with NULL */
-	return (words);
+	words[w] = NULL;
+	return words;
 }
