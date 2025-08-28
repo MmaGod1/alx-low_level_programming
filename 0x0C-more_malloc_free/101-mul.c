@@ -22,34 +22,33 @@ int check_input(char *str)
  * multiply - multiply two positive numbers.
  * @num1: first number to be multiplied
  * @num2: second number to multiply.
+ * @out_len: set to the length of the result array (len1 + len2).
  *
- * Return: the product of the numbers.
+ * Return: pointer to the product digits array (length = *out_len).
  */
-int *multiply(char *num1, char *num2)
+int *multiply(char *num1, char *num2, int *out_len)
 {
 	int len1 = 0, len2 = 0, i, j, mul, sum;
 	int *result;
 
-	while (num1[len1] != '\0')
-		len1++;
+	for (len1 = 0; num1[len1] != '\0'; len1++)
+		;
+	for (len2 = 0; num2[len2] != '\0'; len2++)
+		;
 
-	while (num2[len2] != '\0')
-		len2++;
+	*out_len = len1 + len2;
 
-	result = malloc(sizeof(int) * (len1 + len2));
+	result = malloc(sizeof(int) * (*out_len));
 	if (result == NULL)
 	{
-		printf("Memory allocation failed\n");
+		printf("Error\n");
 		exit(98);
 	}
 
 	/* Initialize the result array to 0 */
-	for (i = 0; i < len1 + len2; i++)
-	{
+	for (i = 0; i < *out_len; i++)
 		result[i] = 0;
-	}
 
-	/* Multiply each digit and store the result in the array */
 	for (i = len1 - 1; i >= 0; i--)
 	{
 		for (j = len2 - 1; j >= 0; j--)
@@ -60,38 +59,8 @@ int *multiply(char *num1, char *num2)
 			result[i + j + 1] = sum % 10;
 		}
 	}
+
 	return (result);
-}
-
-/**
- * result_print - prints the result of multiplication.
- * @result: the product of the multiplication
- * @len: lenght of the result.
- *
- * Return: nothing.
- */
-void result_print(int *result, int len)
-{
-	int i = 0;
-	/* Skip leading zeroes */
-	while (i < len && result[i] == 0)
-		i++;
-
-	/* Print the result */
-	if (i == len)
-	{
-		printf("0\n");
-	}
-	else
-	{
-		while (i < len)
-		{
-			printf("%d", result[i]);
-			i++;
-		}
-		printf("\n");
-	}
-	free(result);
 }
 
 /**
@@ -99,12 +68,12 @@ void result_print(int *result, int len)
  * @argc: counts arguments passed.
  * @argv: the numbers passed.
  *
- * Return: 0 on success.
+ * Return: 0 on success, 98 on failure.
  */
-
 int main(int argc, char *argv[])
 {
-	int *result, len1, len2;
+	int *result;
+	int len, i, started = 0;
 
 	if (argc != 3)
 	{
@@ -112,20 +81,29 @@ int main(int argc, char *argv[])
 		return (98);
 	}
 
+	/* Validate inputs */
 	if (!check_input(argv[1]) || !check_input(argv[2]))
 	{
 		printf("Error\n");
 		return (98);
 	}
 
-	len1 = 0, len2 = 0;
-	while (argv[1][len1] != '\0')
-		len1++;
-	while (argv[2][len2] != '\0')
-		len2++;
+	result = multiply(argv[1], argv[2], &len);
 
-	result = multiply(argv[1], argv[2]);
-	result_print(result, len1 + len2);
+	/* Skip leading zeros and print digits */
+	for (i = 0; i < len; i++)
+	{
+		if (result[i] != 0)
+			started = 1;
+		if (started)
+			putchar(result[i] + '0');
+	}
 
+	/* If all zeros, print single '0' */
+	if (!started)
+		putchar('0');
+
+	putchar('\n');
+	free(result);
 	return (0);
 }
