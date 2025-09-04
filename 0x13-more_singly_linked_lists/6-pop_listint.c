@@ -7,24 +7,19 @@
  *
  * Return: head node's data.
  */
+
 int pop_listint(listint_t **head)
 {
-	int hnode;
-	listint_t *h;
-	listint_t *curr;
+    listint_t *temp;
+    int n;
 
-	if (*head == NULL)
-		return (0);
+    if (head == NULL || *head == NULL)
+        return (0);
 
-	curr = *head;
+    temp = *head;
+    n = temp->n;
+    *head = temp->next;
+    free(temp);
 
-	hnode = curr->n;
-
-	h = curr->next;
-
-	free(curr);
-
-	*head = h;
-
-	return (hnode);
+    return (n);
 }
