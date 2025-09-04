@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
- * bfmain - executes before the main function.
+ * before_main - executes before the main function.
  * Return: void.
  */
 
