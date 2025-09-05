@@ -29,7 +29,6 @@ size_t free_listint_safe(listint_t **h)
 		{
 			if (current == visited[i])
 			{
-				count++;
 				/* Loop detected, stop safely */
 				free(visited);
 				*h = NULL;
@@ -39,6 +38,7 @@ size_t free_listint_safe(listint_t **h)
 
 		/* Save current node address */
 		visited[count] = current;
+		next_node = current->next;
 		free(current);
 		count++;
 		current = next_node;
