@@ -29,6 +29,7 @@ size_t free_listint_safe(listint_t **h)
 		{
 			if (current == visited[i])
 			{
+				count++;
 				/* Loop detected, stop safely */
 				free(visited);
 				*h = NULL;
