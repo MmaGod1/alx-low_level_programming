@@ -10,7 +10,7 @@
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *current, *next_node;
+	listint_t *current = NULL, *next_node = NULL;
 	const listint_t **visited;
 	size_t count = 0, i;
 
