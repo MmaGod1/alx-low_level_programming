@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	char buf[BUF_SIZE];
 
 	if (argc != 3)
-		error_exit(97, "Usage: cp file_from file_to\n", NULL, -1);
+		error_exit(97, "Usage: cp file_from file_to", NULL, -1);
 
 	fd_from = open(argv[1], O_RDONLY);
 	if (fd_from == -1)
@@ -63,5 +63,5 @@ int main(int argc, char *argv[])
 	if (close(fd_to) == -1)
 		error_exit(100, "Error: Can't close fd %d\n", NULL, fd_to);
 
-	return 0;
+	return (0);
 }
