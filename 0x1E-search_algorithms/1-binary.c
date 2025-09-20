@@ -1,53 +1,60 @@
+#include <stdio.h>
 #include "search_algos.h"
+
 /**
- * recursive_search - searches for a value in an array of
- * integers using the binary search algorithm
+ * print_subarray - Prints the current subarray being searched
+ * @array: Pointer to the first element of the subarray
+ * @left: Start index of subarray
+ * @right: End index of subarray
+ */
+static void print_subarray(int *array, size_t left, size_t right)
+{
+	size_t i;
+
+	printf("Searching in array: ");
+	for (i = left; i <= right; i++)
+	{
+		if (i != left)
+			printf(", ");
+		printf("%d", array[i]);
+	}
+	printf("\n");
+}
+
+/**
+ * binary_search - Searches for a value in a sorted array using binary search
+ * @array: Pointer to the first element of the array
+ * @size: Number of elements in the array
+ * @value: Value to search for
  *
- *
- * @array: input array
- * @size: size of the array
- * @value: value to search in
- * Return: index of the number
+ * Return: Index of value, or -1 if not found
  */
 int binary_search(int *array, size_t size, int value)
 {
-	size_t left = 0, right = size - 1, mid;
-	size_t i;
+	size_t left = 0, right;
+	size_t mid;
 
-	if (array == NULL)
-	{
-		printf("Array is NULL\n");
-		return -1;
-	}
+	if (!array || size == 0)
+		return (-1);
+
+	right = size - 1;
 
 	while (left <= right)
 	{
+		print_subarray(array, left, right);
 		mid = left + (right - left) / 2;
 
-		printf("Searching in array: ");
-		for (i = left; i <= right; i++)
-		{
-			printf("%d", array[i]);
-			if (i < right)
-			{
-				printf(", ");
-			}
-		}
-		printf("\n");
-
 		if (array[mid] == value)
-		{
-			return mid;
-		}
+			return ((int)mid);
 		else if (array[mid] < value)
-		{
 			left = mid + 1;
-		}
 		else
 		{
+			if (mid == 0)  /* Prevent underflow */
+				break;
 			right = mid - 1;
 		}
 	}
 
-	return -1;
+	return (-1);
 }
