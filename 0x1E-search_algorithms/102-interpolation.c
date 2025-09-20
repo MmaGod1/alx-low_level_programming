@@ -9,28 +9,27 @@
  * @value: value to search in
  * Return: index of the number
  */
-#include <stdio.h>
 
 int interpolation_search(int *array, size_t size, int value)
 {
+    int low = 0, pos;
+    int high = size - 1;
+
     if (array == NULL)
     {
         printf("Array is NULL\n");
-        return -1;
+        return (-1);
     }
-    
-    int low = 0;
-    int high = size - 1;
     
     while (low <= high && value >= array[low] && value <= array[high])
     {
-        int pos = low + (((double)(high - low) / (array[high] - array[low])) * (value - array[low]));
+        pos = low + (((double)(high - low) / (array[high] - array[low])) * (value - array[low]));
         
         printf("Value checked array[%d] = [%d]\n", pos, array[pos]);
         
         if (array[pos] == value)
         {
-            return pos;
+            return (pos);
         }
         else if (array[pos] < value)
         {
@@ -43,5 +42,5 @@ int interpolation_search(int *array, size_t size, int value)
     }
     
     printf("Value checked array[%d] is out of range\n", high);
-    return -1;
+    return (-1);
 }
