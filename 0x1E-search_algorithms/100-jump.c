@@ -1,52 +1,44 @@
-#include "search_algos.h"
 #include <math.h>
-/**
- * jump_search - searches for a value in an array of
- * integers using the jump search algorithm
- *
- * @array: input array
- * @size: size of the array
- * @value: value to search in
- * Return: index of the number
- */
+#include "search_algos.h"
 
+/**
+ * jump_search - Searches for a value in a sorted array using Jump Search
+ * @array: Pointer to the first element of the array
+ * @size: Number of elements in the array
+ * @value: Value to search for
+ *
+ * Return: Index of the first occurrence of value, or -1 if not found
+ */
 int jump_search(int *array, size_t size, int value)
 {
-    if (array == NULL)
+    size_t step, prev = 0, curr;
+
+    if (!array || size == 0)
+        return (-1);
+
+    step = (size_t)sqrt((double)size);
+    curr = 0;
+
+    /* Jump in blocks until value is smaller than current element */
+    while (curr < size && array[curr] < value)
     {
-        printf("Array is NULL\n");
-        return -1;
+        printf("Value checked array[%lu] = [%d]\n", curr, array[curr]);
+        prev = curr;
+        curr += step;
     }
-    
-    int step = sqrt(size);
-    int prev = 0;
-    
-    while (array[(step < size ? step : size) - 1] < value)
+
+    if (curr >= size)
+        curr = size - 1;
+
+    printf("Value found between indexes [%lu] and [%lu]\n", prev, curr);
+
+    /* Linear search within the block */
+    for (size_t i = prev; i <= curr; i++)
     {
-        prev = step;
-        step += sqrt(size);
-        if (prev >= size)
-        {
-            return -1;
-        }
+        printf("Value checked array[%lu] = [%d]\n", i, array[i]);
+        if (array[i] == value)
+            return ((int)i);
     }
-    
-    int i = prev;
-    printf("Value checked array[%d] = [%d]\n", i, array[i]);
-    while (array[i] < value)
-    {
-        i++;
-        if (i == (step < size ? step : size))
-        {
-            return -1;
-        }
-        printf("Value checked array[%d] = [%d]\n", i, array[i]);
-    }
-    
-    if (array[i] == value)
-    {
-        return i;
-    }
-    
-    return -1;
+
+    return (-1);
 }
