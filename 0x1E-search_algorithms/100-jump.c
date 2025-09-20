@@ -11,15 +11,14 @@
  */
 int jump_search(int *array, size_t size, int value)
 {
-    size_t step, prev = 0, curr, i;
+    size_t step, prev = 0, curr = 0, upper, i;
 
     if (!array || size == 0)
         return (-1);
 
     step = (size_t)sqrt((double)size);
-    curr = 0;
 
-    /* Jump in blocks until value is smaller than current element */
+    /* Jump in blocks */
     while (curr < size && array[curr] < value)
     {
         printf("Value checked array[%lu] = [%d]\n", curr, array[curr]);
@@ -27,13 +26,12 @@ int jump_search(int *array, size_t size, int value)
         curr += step;
     }
 
-    if (curr >= size)
-        curr = size - 1;
+    /* Calculate the upper bound for printing */
+    upper = curr < size ? curr : size;
+    printf("Value found between indexes [%lu] and [%lu]\n", prev, upper);
 
-    printf("Value found between indexes [%lu] and [%lu]\n", prev, curr);
-
-    /* Linear search within the block */
-    for (i = prev; i <= curr; i++)
+    /* Linear search within the block (safe with min(curr, size-1)) */
+    for (i = prev; i < upper; i++)
     {
         printf("Value checked array[%lu] = [%d]\n", i, array[i]);
         if (array[i] == value)
