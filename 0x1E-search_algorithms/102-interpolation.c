@@ -13,47 +13,38 @@
  */
 int interpolation_search(int *array, size_t size, int value)
 {
-    size_t low, high, pos;
-    double fraction;
+	size_t low = 0, high = size - 1, pos;
+	double fraction;
 
-    if (array == NULL)
-        return (-1);
+	if (!array)
+		return (-1);
 
-    low = 0;
-    high = size - 1;
+	while (low <= high && value >= array[low] && value <= array[high])
+	{
+		fraction = (double)(high - low) / (array[high] - array[low]) *
+			(value - array[low]);
+		pos = low + (size_t)fraction;
 
-    while (low <= high && value >= array[low] && value <= array[high])
-    {
-        /* Compute probe position */
-        fraction = (double)(high - low) / (array[high] - array[low]) * 
-                   (value - array[low]);
-        pos = low + (size_t)fraction;
+		if (pos >= size)
+		{
+			printf("Value checked array[%lu] is out of range\n", pos);
+			break;
+		}
 
-        /* Check if probe goes out of array bounds */
-        if (pos >= size)
-        {
-            printf("Value checked array[%d] is out of range\n", (int)pos);
-            break;
-        }
+		printf("Value checked array[%lu] = [%d]\n", pos, array[pos]);
 
-        printf("Value checked array[%d] = [%d]\n", (int)pos, array[pos]);
+		if (array[pos] == value)
+			return ((int)pos);
 
-        /* Check value */
-        if (array[pos] == value)
-            return ((int)pos);
-        else if (array[pos] < value)
-            low = pos + 1;
-        else
-        {
-            if (pos == 0) /* prevent underflow */
-                break;
-            high = pos - 1;
-        }
+		if (array[pos] < value)
+			low = pos + 1;
+		else
+		{
+			if (pos == 0) /* prevent underflow */
+				break;
+			high = pos - 1;
+		}
+	}
 
-        /* Stop if search interval collapses */
-        if (low > high)
-            break;
-    }
-
-    return (-1);
+	return (-1);
 }
